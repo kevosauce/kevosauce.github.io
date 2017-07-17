@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <link type="text/css" rel="stylesheet" href="css/main.css" />
+   </head>
+   <body>
+
+<% provide(:title, "Home") %>
+<h1>Welcome</h1>
+
+<h2>About Me</h2>
+
+<p>
+Hello. My name is Kevin. I just finished a master's degree in physics at UChicago. In a previous life I worked in tech, at Genius, Twitter, and Apple. You can read more about my professional life on <%= link_to "Linked In", "https://www.linkedin.com/in/kevinullmann", target: :_blank %> . As for the personal stuff, I love dogs, am trying to improve my chess game, and have been known to pilot a paraglider named Daisy <small><%= link_to "(poorly…)", "https://www.youtube.com/watch?v=zTw143UWWOk", target: :_blank %></small>
+</p>
+
+<p>
+You can follow me on Twitter <%= link_to "@kevosauce", "https://www.twitter.com/kevosauce", target: :_blank %>. I mostly tweet about politics, science, and religion, with the occassional RT for a cute animal or dumb joke.
+</p>
+
+<h2>Fun Stuff</h2>
+
+<ul>
+	<li>
+	<strong> <%= link_to "My master's thesis:", "/static_pages/thesis", target: :_blank %> </strong> 
+	<b><i>ATLAS Jet Energy Scale Uncertainty: An analysis of the Jet Energy Resolution using random cones</i> </b> My final report for some work I did in <%= link_to "Mark Oreglia's", "https://hep.uchicago.edu/~oreglia/", target: :_blank %> group at UChicago
+	</li>
+
+	<li>
+	<strong> <%= link_to "Discovery of the Proton", "/static_pages/proton", target: :_blank %> </strong> 
+	A paper I wrote on the history and discovery of the proton. I focus on three seminal experiments that brought us to our modern understanding of the atom
+	</li>
+
+	<li>
+	<strong> <%= link_to "Calculus of Datatypes:", "/static_pages/functional_prog", target: :_blank %> </strong> 
+	A paper that I wrote as an undergrad about functional programming
+	</li> 
+
+	<li>
+	<strong> <%= link_to "Nothing:", "/static_pages/nothing-poem" %> </strong> 
+	A poem I wrote while staying at <%= link_to "Amma's ashram", "http://www.amritapuri.org", target: :_blank %>
+	</li>
+	
+	<li>
+	<strong> <%= link_to "Rule 110:", "/static_pages/automata", target: :_blank %> </strong> 
+	In hopes of learning a bit of Javascript, and insipired by <%= link_to "James Somers", "http://jsomers.net/blog/110", target: :_blank %>, I implemented a cellular automata simulation
+	</li>
+</ul>
+
+
+   </body>
+</html>
