@@ -27,7 +27,8 @@ footer {
   margin-top: 1em;
   padding-top: 3em;
   text-align: center;
-  a {
-    color: #7B7D7D;
-  }
+}
+
+footer a {
+  color: #7B7D7D;
 }
