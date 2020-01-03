@@ -4,19 +4,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   line-height: 1.5;
   padding: 4em 1em;
-  color: #566573;
-  background-color: #FDFEFE;
 }
 
-h1,
-h2,
-strong {
-  color: #333;
-}
-
-a {
-  color: #2b2cc8;
-}
 
 h2 {
   margin-top: 1em;
@@ -29,6 +18,53 @@ footer {
   text-align: center;
 }
 
+/* Colors */
+
+body {
+  color: #566573;
+  background-color: #f2f2f2;
+}
+
+h1,
+h2,
+strong {
+  color: #333;
+}
+
+a {
+  color: #2b2cc8;
+}
+
 footer a {
   color: #7B7D7D;
 }
+
+@media (prefers-color-scheme: dark) {
+
+   body {
+     color: #e6e6e6;
+     background-color: #121212;
+   }
+
+   h1,
+   h2,
+   strong {
+     color: #a1a1a1;
+   }
+
+   a:link {
+     color: #99c2ff;
+   }
+   a:visited {
+     color: #4d4dff;
+   }
+
+   footer a:link {
+     color: #7B7D7D;
+   }
+
+   footer a:visited {
+     color: #7B7D7D;
+   }
+}
+
