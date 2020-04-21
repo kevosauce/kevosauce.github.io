@@ -5,7 +5,7 @@ body {
   line-height: 1.5;
   padding: 4em 1em;
 }
-
+/*
 
 h2 {
   margin-top: 1em;
@@ -18,6 +18,250 @@ footer {
   text-align: center;
 }
 
+html {
+  width: 100%;
+  height: 100%;
+
+}
+*/  
+/*
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1,h2 {
+  font-family: 'Open Sans', sans-serif;
+}
+*/
+
+.authorImage {
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+h6 {
+  font-weight: bold;
+}
+
+.authorList {
+  font-size: 75%;
+}
+
+.paperTeaser {
+  max-height: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.borderAndBox {
+  border-radius: 5px 5px;
+  box-shadow: 0 0 5px;  
+}
+
+.startElement {
+}
+
+.entry {
+  padding-top: 2rem;
+
+}
+
+.entryTitle h5 {
+  margin-bottom: 0rem;
+
+}
+
+.entryTitle {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+
+}
+
+.header li {
+  margin: 0;
+  list-style: none;
+}
+
+.header li img {
+   vertical-align:middle;
+   padding-right: 3px;
+}
+
+.informal-list li {
+  margin: 0;
+  list-style: none;
+}
+
+.informal-list ul {
+  margin: 0;
+  list-style: none;
+}
+
+.blackContainer {
+  background: black;
+  color: #ddd;
+  padding-top: 12rem;
+  padding-bottom: 12rem;
+}
+
+.blackContainer ul img {
+  filter: invert(100%);
+}
+
+.whiteContainer {
+  padding-top: 12rem;
+  padding-bottom: 12rem;
+}
+
+.blueContainer {
+  background: #1EAEDB;
+  padding-top: 12rem;
+  padding-bottom: 12rem;
+}
+
+.blueContainer a {
+  color: white;
+}
+
+.blueContainer img {
+  vertical-align: middle;
+}
+
+.mapContainer {
+  padding-top: 12rem;
+  padding-bottom: 0rem;
+}
+
+.blackContainer .startElement {
+  border-top: 0px;
+}
+
+/*
+.talks-and-notes ul {
+  font-family: 'Roboto Mono', monospace;
+}
+*/
+
+.talks-and-notes ul img {
+  width: 16px;
+}
+
+.talks-and-notes td {
+/*  font-family: 'Roboto Mono', monospace; */
+  padding: 0.6em 0.4em;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 0;
+}
+
+.talks-and-notes img {
+  vertical-align: bottom;
+}
+
+.talks-and-notes .td-preamble {
+  min-width: 6.3em;
+}
+
+
+.talks-and-notes .td-note::before {
+  content: " ";
+  display: inline-block;
+  background-size: 100%;
+  width: 16px;
+  height: 20px;
+  vertical-align: top;
+  padding-right: 6pt;
+  background: url("octicons/svg/pencil.svg") no-repeat top left; 
+
+}
+
+.talks-and-notes .td-talk::before {
+  content: " ";
+  display: inline-block;
+  background-size: 100%;
+  width: 16px;
+  height: 20px;
+  vertical-align: top;
+  padding-right: 6pt;
+  content: url("octicons/svg/comment-discussion.svg");  
+}
+
+.talks-and-notes .td-sound::before {
+  content: " ";
+  display: inline-block;
+  background-size: 100%;
+  width: 16px;
+  height: 20px;
+  vertical-align: top;
+  padding-right: 6pt;
+  content: url("octicons/svg/unmute.svg");  
+}
+
+.talks-and-notes .td-spreadsheet::before {
+  content: " ";
+  display: inline-block;
+  background-size: 100%;
+  width: 16px;
+  height: 20px;
+  vertical-align: top;
+  padding-right: 6pt;
+  content: url("octicons/svg/list-unordered.svg");  
+}
+
+
+/* 
+  Automatic Header Anchors
+  http://blog.parkermoore.de/2014/08/01/header-anchor-links-in-vanilla-javascript-for-github-pages-and-jekyll/
+ */
+
+ /*!
+ *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+
+.fa {
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.fa-link::before {
+  content: url("octicons/svg/link.svg");
+}
+
+.blackContainer .fa-link::before {
+  filter: invert(100%); 
+}
+
+/*
+ * This code is courtesy Ben Balter, modified by Parker Moore for jekyllrb.com
+ * http://ben.balter.com/2014/03/13/pages-anchor-links/
+ */
+.header-link {
+  position: relative;
+  left: 0.5em;
+  opacity: 0;
+  font-size: 0.8em;
+
+  -webkit-transition: opacity 0.2s ease-in-out 0.1s;
+  -moz-transition: opacity 0.2s ease-in-out 0.1s;
+  -ms-transition: opacity 0.2s ease-in-out 0.1s;
+}
+h2:hover .header-link,
+h3:hover .header-link,
+h4:hover .header-link,
+h5:hover .header-link,
+h6:hover .header-link {
+  opacity: 1;
+}
+    
 /* Colors */
 
 body {
