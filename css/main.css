@@ -1,41 +1,108 @@
-body {
-  margin: 0 auto;
-  max-width: 60em;
-  font-family: 'Open Sans', sans-serif;
-  line-height: 1.5;
-  padding: 4em 1em;
+/* Colors */
+
+:root {
+  --bg-color-black: black;
+  --bg-color-white: #f2f2f2;
+  --white-bg-text-color: #566573;
+  --black-bg-text-color: #f2f2f2;
 }
 
-h2 {
-  margin-top: 1em;
-  padding-top: 1em;
+body {
+  color: #566573;
+  background-color: #f2f2f2;
+}
+
+h1,
+h2,
+strong {
+  color: #333;
+}
+
+h1 {
+  padding-bottom: 3rem;
+}
+
+a {
+  color: #2b2cc8;
+}
+
+footer a {
+  color: #7B7D7D;
+}
+
+.inlineFooter {
+  color: #7B7D7D;
+  text-align: center;
+  padding-bottom: 3rem;
+}
+
+.blackBackground {
+  background-color: black;
+  color: #e6e6e6;
+}
+
+    
+h1,
+h2.blackBackground  {
+  color: #ffffff;
+}
+
+/* TODO: re-enable 
+@media (prefers-color-scheme: dark) {
+
+   body {
+     color: #e6e6e6;
+     background-color: #121212;
+   }
+
+   h1,
+   h2,
+   strong {
+     color: #a1a1a1;
+   }
+
+   a:link {
+     color: #99c2ff;
+   }
+   a:visited {
+     color: #4d4dff;
+   }
+
+   footer a:link {
+     color: #7B7D7D;
+   }
+
+   footer a:visited {
+     color: #7B7D7D;
+   }
+}
+*/
+
+body {
+  /* margin: 0 auto; */
+  /* max-width: 60em; */
+  font-family: 'Open Sans', sans-serif;
+  /* line-height: 1.5; */
+  /* padding: 4em 1em; */
 }
 
 footer { 
   margin-top: 1em;
   padding-top: 3em;
+  padding-bottom: 3em;
   text-align: center;
 }
+
+
+/* begin additions */
 
 html {
   width: 100%;
   height: 100%;
-
-}
-
-.authorImage {
-    border-radius: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
 }
 
 h6 {
   font-weight: bold;
-}
-
-.authorList {
-  font-size: 75%;
 }
 
 .paperTeaser {
@@ -52,23 +119,17 @@ h6 {
   box-shadow: 0 0 5px;  
 }
 
-.startElement {
-}
-
 .entry {
   padding-top: 2rem;
-
 }
 
 .entryTitle h5 {
   margin-bottom: 0rem;
-
 }
 
 .entryTitle {
   margin-top: 4rem;
   margin-bottom: 2rem;
-
 }
 
 .header li {
@@ -91,57 +152,36 @@ h6 {
   list-style: none;
 }
 
-.blackContainer {
-  background: black;
-  color: #ddd;
-  padding-top: 12rem;
-  padding-bottom: 12rem;
+.container {
+  max-width: 60em;
+  align-content: center;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  margin: 0 auto;
 }
 
-.blackContainer ul img {
+.blackBackground ul img {
   filter: invert(100%);
 }
 
-.whiteContainer {
-  padding-top: 12rem;
-  padding-bottom: 12rem;
-}
-
-.blueContainer {
-  background: #1EAEDB;
-  padding-top: 12rem;
-  padding-bottom: 12rem;
-}
-
-.blueContainer a {
-  color: white;
+.blueBackground {
+  background-color: #1EAEDB;
 }
 
 .blueContainer img {
   vertical-align: middle;
 }
 
-.mapContainer {
-  padding-top: 12rem;
-  padding-bottom: 0rem;
-}
-
-.blackContainer .startElement {
-  border-top: 0px;
-}
-
-/*
 .talks-and-notes ul {
   font-family: 'Roboto Mono', monospace;
 }
-*/
 
 .talks-and-notes ul img {
   width: 16px;
 }
 
 .talks-and-notes td {
-/*  font-family: 'Roboto Mono', monospace; */
+  font-family: 'Roboto Mono', monospace; 
   padding: 0.6em 0.4em;
   text-align: left;
   vertical-align: top;
@@ -155,7 +195,6 @@ h6 {
 .talks-and-notes .td-preamble {
   min-width: 6.3em;
 }
-
 
 .talks-and-notes .td-note::before {
   content: " ";
@@ -231,6 +270,7 @@ h6 {
  * This code is courtesy Ben Balter, modified by Parker Moore for jekyllrb.com
  * http://ben.balter.com/2014/03/13/pages-anchor-links/
  */
+
 .header-link {
   position: relative;
   left: 0.5em;
@@ -246,56 +286,5 @@ h3:hover .header-link,
 h4:hover .header-link,
 h5:hover .header-link,
 h6:hover .header-link {
-  opacity: 1;
+  opacity: 1; 
 }
-    
-/* Colors */
-
-body {
-  color: #566573;
-  background-color: #f2f2f2;
-}
-
-h1,
-h2,
-strong {
-  color: #333;
-}
-
-a {
-  color: #2b2cc8;
-}
-
-footer a {
-  color: #7B7D7D;
-}
-
-@media (prefers-color-scheme: dark) {
-
-   body {
-     color: #e6e6e6;
-     background-color: #121212;
-   }
-
-   h1,
-   h2,
-   strong {
-     color: #a1a1a1;
-   }
-
-   a:link {
-     color: #99c2ff;
-   }
-   a:visited {
-     color: #4d4dff;
-   }
-
-   footer a:link {
-     color: #7B7D7D;
-   }
-
-   footer a:visited {
-     color: #7B7D7D;
-   }
-}
-
