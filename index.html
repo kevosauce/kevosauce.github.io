@@ -24,7 +24,24 @@
 <h1 class="darkBackground">Welcome</h1>
 
 <p>
-Hello.
+Hello, 
+<script>
+var date = new Date();
+var text = "";
+var hours = date.getHours();
+if (hours < 4) {
+  text = "you're up late!";
+} else if (hours < 6) {
+  text = "you're up early!";
+} else if (hours < 12) {
+  text = "and good morning!";
+} else if (hours < 18) {
+  text = "and good afternoon!";
+} else {
+  text = "and good evening!";
+}
+document.write(text);
+</script>
 My name is Kevin.
 I work as a software engineer at Uber ATG, in the Autonomy Capabilities group.
 Prior to joining ATG I earned a master's degree in physics at UChicago, and before that I worked for several years in app development, at Genius, Twitter, and Apple.
