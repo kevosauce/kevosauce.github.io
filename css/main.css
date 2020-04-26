@@ -15,6 +15,7 @@ body {
   color: var(--text-dark);
   background-color: var(--bg-light);
   font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
 }
 
 h1,
@@ -28,7 +29,7 @@ h1 {
 }
 
 a {
-  color: tomato;
+  color: var(--link-dark);
 }
 
 footer a {
@@ -164,12 +165,18 @@ h6 {
   filter: invert(100%);
 }
 
-.blueBackground {
+.midBackground {
   background-color: var(--bg-mid);
 }
 
 .blueContainer img {
   vertical-align: middle;
+}
+
+.talks-and-notes
+{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .talks-and-notes ul {
@@ -236,55 +243,8 @@ h6 {
   background-size: 100%;
   width: 16px;
   height: 20px;
-  vertical-align: top;
   padding-right: 6pt;
-  content: url("octicons/svg/list-unordered.svg");  
-}
-
-
-/* 
-  Automatic Header Anchors
-  http://blog.parkermoore.de/2014/08/01/header-anchor-links-in-vanilla-javascript-for-github-pages-and-jekyll/
- */
-
- /*!
- *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
- *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
- */
-
-.fa {
-  display: inline-block;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-}
-.fa-link::before {
-  content: url("octicons/svg/link.svg");
-}
-
-.blackContainer .fa-link::before {
-  filter: invert(100%); 
-}
-
-/*
- * This code is courtesy Ben Balter, modified by Parker Moore for jekyllrb.com
- * http://ben.balter.com/2014/03/13/pages-anchor-links/
- */
-
-.header-link {
-  position: relative;
-  left: 0.5em;
-  opacity: 0;
-  font-size: 0.8em;
-
-  -webkit-transition: opacity 0.2s ease-in-out 0.1s;
-  -moz-transition: opacity 0.2s ease-in-out 0.1s;
-  -ms-transition: opacity 0.2s ease-in-out 0.1s;
-}
-h2:hover .header-link,
-h3:hover .header-link,
-h4:hover .header-link,
-h5:hover .header-link,
-h6:hover .header-link {
-  opacity: 1; 
+  padding-top: 2pt;
+  content: url("../img/list-unordered.svg");
+  fill: blue;
 }
