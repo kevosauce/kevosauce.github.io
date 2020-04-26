@@ -1,15 +1,17 @@
 /* Colors */
 
 :root {
-  --bg-color-black: black;
-  --bg-color-white: #f2f2f2;
-  --white-bg-text-color: #566573;
-  --black-bg-text-color: #f2f2f2;
+  --bg-dark: #2b3531;
+  --bg-light: #fcfcfc;
+  --bg-mid: #d6e4d6;
+  --text-dark: #566573;
+  --text-light: white;
 }
 
 body {
-  color: #566573;
-  background-color: #f2f2f2;
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1,
@@ -37,8 +39,8 @@ footer a {
 }
 
 .blackBackground {
-  background-color: black;
-  color: #e6e6e6;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
 }
 
     
@@ -77,14 +79,6 @@ h2.blackBackground  {
    }
 }
 */
-
-body {
-  /* margin: 0 auto; */
-  /* max-width: 60em; */
-  font-family: 'Open Sans', sans-serif;
-  /* line-height: 1.5; */
-  /* padding: 4em 1em; */
-}
 
 footer { 
   margin-top: 1em;
@@ -165,7 +159,7 @@ h6 {
 }
 
 .blueBackground {
-  background-color: #1EAEDB;
+  background-color: var(--bg-mid);
 }
 
 .blueContainer img {
