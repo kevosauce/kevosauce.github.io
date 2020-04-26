@@ -1,11 +1,14 @@
 /* Colors */
 
 :root {
-  --bg-dark: #2b3531;
+  --bg-dark: #1d2421;
   --bg-light: #fcfcfc;
   --bg-mid: #d6e4d6;
   --text-dark: #566573;
   --text-light: white;
+  --link-light: #f87b65;
+  --link-dark: tomato;
+  --link-mid: tomato;
 }
 
 body {
@@ -17,7 +20,7 @@ body {
 h1,
 h2,
 strong {
-  color: #333;
+  color: var(--bg-dark);
 }
 
 h1 {
@@ -25,7 +28,7 @@ h1 {
 }
 
 a {
-  color: #2b2cc8;
+  color: tomato;
 }
 
 footer a {
@@ -38,15 +41,18 @@ footer a {
   padding-bottom: 3rem;
 }
 
-.blackBackground {
+.darkBackground {
   background-color: var(--bg-dark);
   color: var(--text-light);
 }
 
     
 h1,
-h2.blackBackground  {
-  color: #ffffff;
+h2.darkBackground  {
+  color: var(--bg-light);
+}
+a.darkBackground {
+  color: var(--link-light);
 }
 
 /* TODO: re-enable 
@@ -154,7 +160,7 @@ h6 {
   margin: 0 auto;
 }
 
-.blackBackground ul img {
+.darkBackground ul img {
   filter: invert(100%);
 }
 
