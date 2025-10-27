@@ -451,24 +451,13 @@
 	<!-- API Key Modal -->
 	<div id="apiModal" class="modal">
 		<div class="modal-content">
-			<h2>AI Provider Setup</h2>
-			<p>Choose your AI provider for generating clues. Your key is stored locally and only sent to your chosen
-				provider.</p>
-
-			<div style="margin-bottom: 15px;">
-				<label style="display: block; margin-bottom: 5px; font-weight: bold;">Provider:</label>
-				<select id="providerSelect" class="modal-input" style="text-transform: none;">
-					<option value="groq">Groq (Free tier available)</option>
-					<option value="openai">OpenAI (Paid)</option>
-				</select>
-			</div>
+			<h2>Groq API Setup</h2>
+			<p>Enter your Groq API key to generate clues with AI. Your key is stored locally and only sent to Groq.</p>
 
 			<div id="providerInfo"
 				style="margin-bottom: 15px; padding: 10px; background: #f0f0f0; border-radius: 5px; font-size: 13px;">
-				<p id="groqInfo"><strong>Groq:</strong> Free tier with generous limits. <a
-						href="https://console.groq.com/keys" target="_blank">Get API key →</a></p>
-				<p id="openaiInfo" style="display: none;"><strong>OpenAI:</strong> Requires payment. <a
-						href="https://platform.openai.com/api-keys" target="_blank">Get API key →</a></p>
+				<p><strong>Groq:</strong> Free tier with generous limits. <a href="https://console.groq.com/keys"
+						target="_blank">Get API key →</a></p>
 			</div>
 
 			<input type="password" id="apiKeyInput" class="modal-input" placeholder="API Key" />
