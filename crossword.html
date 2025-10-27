@@ -304,6 +304,104 @@
 		.cancel-btn:hover {
 			background: #bbb;
 		}
+
+		/* Mobile responsive styles */
+		@media (max-width: 768px) {
+			.container {
+				padding: 20px;
+				margin: 10px;
+			}
+
+			h1 {
+				font-size: 1.5em;
+				margin-bottom: 20px;
+			}
+
+			.input-group {
+				flex-direction: column;
+				gap: 15px;
+			}
+
+			input[type="text"] {
+				padding: 12px;
+				font-size: 16px;
+			}
+
+			button {
+				padding: 12px 20px;
+				font-size: 16px;
+				width: 100%;
+			}
+
+			.grid {
+				max-width: 300px;
+				gap: 0;
+			}
+
+			.cell {
+				font-size: 20px;
+			}
+
+			.cell-number {
+				font-size: 12px;
+				top: 1px;
+				left: 2px;
+			}
+
+			.clues-container {
+				grid-template-columns: 1fr;
+				gap: 15px;
+			}
+
+			.clue-actions {
+				flex-direction: column;
+				gap: 15px;
+			}
+
+			.secondary-btn {
+				width: 100%;
+				padding: 12px 20px;
+				font-size: 16px;
+			}
+
+			.modal-content {
+				padding: 20px;
+				margin: 20px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.container {
+				padding: 15px;
+				margin: 5px;
+			}
+
+			h1 {
+				font-size: 1.3em;
+			}
+
+			.grid {
+				max-width: 250px;
+			}
+
+			.cell {
+				font-size: 18px;
+			}
+
+			.cell-number {
+				font-size: 10px;
+			}
+
+			input[type="text"] {
+				padding: 10px;
+				font-size: 16px;
+			}
+
+			button {
+				padding: 10px 15px;
+				font-size: 16px;
+			}
+		}
 	</style>
 </head>
 
@@ -733,9 +831,9 @@ def generate_from_seed(seed_word):
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${apiKey}`
 					},
-				body: JSON.stringify({
-					model: 'llama-3.3-70b-versatile',
-					messages: [{
+					body: JSON.stringify({
+						model: 'llama-3.3-70b-versatile',
+						messages: [{
 							role: 'system',
 							content: 'You are a crossword clue writer. Write concise, clever crossword clues for the given words. Return ONLY a JSON object with two arrays: "across" and "down", each containing 5 clues as strings.'
 						}, {
