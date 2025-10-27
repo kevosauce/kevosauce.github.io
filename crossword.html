@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5x5 Mini Crossword Generator</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			min-height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 20px;
+		}
+
+		.container {
+			background: white;
+			border-radius: 20px;
+			padding: 40px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			max-width: 600px;
+			width: 100%;
+		}
+
+		h1 {
+			text-align: center;
+			color: #333;
+			margin-bottom: 30px;
+			font-size: 2em;
+		}
+
+		.input-section {
+			margin-bottom: 30px;
+		}
+
+		.input-group {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 15px;
+		}
+
+		input[type="text"] {
+			flex: 1;
+			padding: 15px;
+			font-size: 18px;
+			border: 2px solid #ddd;
+			border-radius: 10px;
+			text-transform: uppercase;
+			transition: border-color 0.3s;
+		}
+
+		input[type="text"]:focus {
+			outline: none;
+			border-color: #667eea;
+		}
+
+		button {
+			padding: 15px 30px;
+			font-size: 18px;
+			font-weight: bold;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			border: none;
+			border-radius: 10px;
+			cursor: pointer;
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+
+		button:hover:not(:disabled) {
+			transform: translateY(-2px);
+			box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+		}
+
+		button:active {
+			transform: translateY(0);
+		}
+
+		button:disabled {
+			background: #ccc;
+			cursor: not-allowed;
+			transform: none;
+		}
+
+		.error {
+			color: #e74c3c;
+			padding: 10px;
+			background: #fee;
+			border-radius: 5px;
+			margin-bottom: 15px;
+			display: none;
+		}
+
+		.error.show {
+			display: block;
+		}
+
+		.loading {
+			text-align: center;
+			color: #667eea;
+			font-size: 18px;
+			display: none;
+		}
+
+		.loading.show {
+			display: block;
+		}
+
+		.puzzle-container {
+			display: none;
+		}
+
+		.puzzle-container.show {
+			display: block;
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 0;
+			margin: 20px auto;
+			max-width: 400px;
+			border: 2px solid #333;
+		}
+
+		.cell {
+			aspect-ratio: 1;
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 24px;
+			font-weight: bold;
+			background: white;
+			border: 1px solid #333;
+			text-transform: uppercase;
+		}
+
+		.cell-number {
+			position: absolute;
+			top: 2px;
+			left: 3px;
+			font-size: 14px;
+			font-weight: normal;
+			color: #333;
+		}
+
+		.cell.empty {
+			background: #f0f0f0;
+		}
+
+		.info {
+			text-align: center;
+			color: #666;
+			margin-top: 20px;
+		}
+
+		.seed-word {
+			color: #667eea;
+			font-weight: bold;
+		}
+
+		.status {
+			text-align: center;
+			color: #999;
+			font-size: 14px;
+			margin-top: 10px;
+		}
+
+		.init-status {
+			text-align: center;
+			color: #667eea;
+			font-size: 16px;
+			padding: 20px;
+		}
+
+		.clue-actions {
+			display: flex;
+			gap: 10px;
+			justify-content: center;
+			margin-top: 20px;
+		}
+
+		.secondary-btn {
+			background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+			padding: 12px 24px;
+			font-size: 16px;
+		}
+
+		.clues-section {
+			margin-top: 30px;
+			display: none;
+		}
+
+		.clues-section.show {
+			display: block;
+		}
+
+		.clues-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+			margin-top: 15px;
+		}
+
+		.clue-list {
+			background: #f9f9f9;
+			padding: 15px;
+			border-radius: 10px;
+		}
+
+		.clue-list h3 {
+			color: #667eea;
+			margin-bottom: 10px;
+			font-size: 16px;
+		}
+
+		.clue-item {
+			margin-bottom: 8px;
+			font-size: 14px;
+			color: #333;
+		}
+
+		.clue-number {
+			font-weight: bold;
+			color: #667eea;
+		}
+
+		.modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			justify-content: center;
+			align-items: center;
+			z-index: 1000;
+		}
+
+		.modal.show {
+			display: flex;
+		}
+
+		.modal-content {
+			background: white;
+			padding: 30px;
+			border-radius: 15px;
+			max-width: 500px;
+			width: 90%;
+			box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+		}
+
+		.modal-content h2 {
+			margin-bottom: 15px;
+			color: #333;
+		}
+
+		.modal-content p {
+			margin-bottom: 20px;
+			color: #666;
+			line-height: 1.5;
+		}
+
+		.modal-content a {
+			color: #667eea;
+			text-decoration: none;
+		}
+
+		.modal-content a:hover {
+			text-decoration: underline;
+		}
+
+		.modal-input {
+			width: 100%;
+			padding: 12px;
+			font-size: 14px;
+			border: 2px solid #ddd;
+			border-radius: 8px;
+			margin-bottom: 15px;
+			font-family: monospace;
+		}
+
+		.modal-actions {
+			display: flex;
+			gap: 10px;
+			justify-content: flex-end;
+		}
+
+		.cancel-btn {
+			background: #ccc;
+			color: #333;
+		}
+
+		.cancel-btn:hover {
+			background: #bbb;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>🧩 5×5 Mini Crossword</h1>
+
+		<div id="initStatus" class="init-status">Loading Python environment...</div>
+
+		<div id="mainContent" style="display: none;">
+			<div class="input-section">
+				<div class="input-group">
+					<input type="text" id="wordInput" placeholder="Enter a 5-letter word..." maxlength="5"
+						autocomplete="off">
+					<button id="generateBtn" onclick="generatePuzzle()">Generate</button>
+				</div>
+				<div id="error" class="error"></div>
+				<div id="loading" class="loading">Generating puzzle...</div>
+				<div id="status" class="status"></div>
+			</div>
+
+			<div id="puzzleContainer" class="puzzle-container">
+				<div id="grid" class="grid"></div>
+				<div class="info">
+					Seed word: <span class="seed-word" id="seedWord"></span>
+				</div>
+				<div class="clue-actions">
+					<button class="secondary-btn" onclick="generateClues()">✨ Generate Clues</button>
+					<button class="secondary-btn cancel-btn" onclick="manageApiKey()">⚙️ API Settings</button>
+				</div>
+				<div id="cluesSection" class="clues-section">
+					<div class="clues-container">
+						<div class="clue-list">
+							<h3>Across</h3>
+							<div id="acrossClues"></div>
+						</div>
+						<div class="clue-list">
+							<h3>Down</h3>
+							<div id="downClues"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- API Key Modal -->
+	<div id="apiModal" class="modal">
+		<div class="modal-content">
+			<h2>AI Provider Setup</h2>
+			<p>Choose your AI provider for generating clues. Your key is stored locally and only sent to your chosen
+				provider.</p>
+
+			<div style="margin-bottom: 15px;">
+				<label style="display: block; margin-bottom: 5px; font-weight: bold;">Provider:</label>
+				<select id="providerSelect" class="modal-input" style="text-transform: none;">
+					<option value="groq">Groq (Free tier available)</option>
+					<option value="openai">OpenAI (Paid)</option>
+				</select>
+			</div>
+
+			<div id="providerInfo"
+				style="margin-bottom: 15px; padding: 10px; background: #f0f0f0; border-radius: 5px; font-size: 13px;">
+				<p id="groqInfo"><strong>Groq:</strong> Free tier with generous limits. <a
+						href="https://console.groq.com/keys" target="_blank">Get API key →</a></p>
+				<p id="openaiInfo" style="display: none;"><strong>OpenAI:</strong> Requires payment. <a
+						href="https://platform.openai.com/api-keys" target="_blank">Get API key →</a></p>
+			</div>
+
+			<input type="password" id="apiKeyInput" class="modal-input" placeholder="API Key" />
+			<div class="modal-actions">
+				<button class="cancel-btn" onclick="closeApiModal()">Cancel</button>
+				<button onclick="saveApiKey()">Save & Continue</button>
+			</div>
+		</div>
+	</div>
+
+	<script minicrossword/src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+	<script>
+		let pyodide = null;
+		let pythonReady = false;
+
+		const wordInput = document.getElementById('wordInput');
+		const generateBtn = document.getElementById('generateBtn');
+		const errorDiv = document.getElementById('error');
+		const loadingDiv = document.getElementById('loading');
+		const statusDiv = document.getElementById('status');
+		const puzzleContainer = document.getElementById('puzzleContainer');
+		const gridDiv = document.getElementById('grid');
+		const seedWordSpan = document.getElementById('seedWord');
+		const initStatus = document.getElementById('initStatus');
+		const mainContent = document.getElementById('mainContent');
+
+		async function initPython() {
+			try {
+				initStatus.textContent = 'Loading Python runtime...';
+				pyodide = await loadPyodide();
+
+				initStatus.textContent = 'Loading word list...';
+
+				// Load the word list
+				const wordsResponse = await fetch('minicrossword/words.json');
+				if (!wordsResponse.ok) throw new Error(`Failed to load words.json: ${wordsResponse.status}`);
+				const wordsData = await wordsResponse.json();
+
+				// Load Python modules
+				initStatus.textContent = 'Loading Python modules...';
+
+				const wordTrieResponse = await fetch('minicrossword/src/crossword_mini/word_trie.py');
+				if (!wordTrieResponse.ok) throw new Error(`Failed to load word_trie.py: ${wordTrieResponse.status}`);
+				const wordTrieCode = await wordTrieResponse.text();
+
+				const gridResponse = await fetch('minicrossword/src/crossword_mini/grid.py');
+				if (!gridResponse.ok) throw new Error(`Failed to load grid.py: ${gridResponse.status}`);
+				const gridCode = await gridResponse.text();
+
+				const generatorResponse = await fetch('minicrossword/src/crossword_mini/crossword_generator.py');
+				if (!generatorResponse.ok) throw new Error(`Failed to load crossword_generator.py: ${generatorResponse.status}`);
+				const generatorCode = await generatorResponse.text();
+
+				// Set up the Python environment
+				await pyodide.runPythonAsync(`
+from typing import List, Optional, Set
+import copy
+
+# Store words in Python
+WORDS = ${JSON.stringify(wordsData.words)}
+
+${wordTrieCode.replace('from typing import', '# from typing import')}
+
+${gridCode.replace('from .word_trie import WordTrie', '# from .word_trie import WordTrie')}
+
+${generatorCode.replace('from .grid import Grid', '# from .grid import Grid')
+						.replace('from .word_trie import WordTrie', '# from .word_trie import WordTrie')}
+
+# Load words into trie
+def load_words():
+    trie = WordTrie()
+    for word in WORDS:
+        trie.insert(word)
+    return trie
+
+trie = load_words()
+
+def generate_from_seed(seed_word):
+    result = generate_puzzle(seed_word.upper(), trie)
+    if result is None:
+        return None
+
+    # Convert grid to list of lists
+    grid_data = []
+    for row in range(5):
+        row_data = []
+        for col in range(5):
+            row_data.append(result.get_cell(row, col))
+        grid_data.append(row_data)
+    return grid_data
+`);
+
+				pythonReady = true;
+				initStatus.style.display = 'none';
+				mainContent.style.display = 'block';
+				statusDiv.textContent = `Ready! ${wordsData.words.length} words loaded`;
+
+			} catch (error) {
+				initStatus.innerHTML = `<div style="color: #e74c3c;">Error: ${error.message}</div>
+					<div style="font-size: 12px; margin-top: 10px;">Check browser console for details</div>`;
+				console.error('Initialization error:', error);
+				console.error('Error stack:', error.stack);
+			}
+		}
+
+		// Initialize on page load
+		initPython();
+
+		// Allow Enter key to submit
+		wordInput.addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') {
+				generatePuzzle();
+			}
+		});
+
+		async function generatePuzzle() {
+			const word = wordInput.value.trim().toUpperCase();
+
+			// Clear previous states
+			errorDiv.classList.remove('show');
+			puzzleContainer.classList.remove('show');
+
+			if (!pythonReady) {
+				showError('Python environment not ready yet. Please wait...');
+				return;
+			}
+
+			// Validate input
+			if (word.length !== 5) {
+				showError('Please enter exactly 5 letters');
+				return;
+			}
+
+			if (!/^[A-Z]+$/.test(word)) {
+				showError('Please enter only letters');
+				return;
+			}
+
+			// Show loading
+			loadingDiv.classList.add('show');
+			loadingDiv.textContent = 'Generating puzzle... this may take a few seconds';
+			generateBtn.disabled = true;
+
+			// Use setTimeout to let the UI update before running the heavy computation
+			setTimeout(async () => {
+				try {
+					// Call Python function
+					const result = await pyodide.runPythonAsync(`generate_from_seed("${word}")`);
+
+					if (result === null || result === undefined) {
+						showError(`Could not generate a puzzle with "${word}"`);
+						return;
+					}
+
+					// Convert Python result to JavaScript
+					const gridData = result.toJs();
+					displayPuzzle(gridData, word);
+
+				} catch (error) {
+					showError('Error generating puzzle: ' + error.message);
+					console.error('Error:', error);
+				} finally {
+					loadingDiv.classList.remove('show');
+					loadingDiv.textContent = 'Generating puzzle...';
+					generateBtn.disabled = false;
+				}
+			}, 100);
+		} function showError(message) {
+			errorDiv.textContent = message;
+			errorDiv.classList.add('show');
+		}
+
+		function displayPuzzle(gridData, seedWord) {
+			// Clear previous grid
+			gridDiv.innerHTML = '';
+
+			// Clue numbers: downs are 1-4 (top row), acrosses are 1,6,7,8,9 (first column + 6,7,8,9)
+			const clueNumbers = [
+				[1, 2, 3, 4, 5],      // Row 0: downs 1-5
+				[6, null, null, null, null],  // Row 1: across 6
+				[7, null, null, null, null],  // Row 2: across 7
+				[8, null, null, null, null],  // Row 3: across 8
+				[9, null, null, null, null]   // Row 4: across 9
+			];
+
+			// Create grid cells
+			for (let row = 0; row < 5; row++) {
+				for (let col = 0; col < 5; col++) {
+					const cell = document.createElement('div');
+					cell.className = 'cell';
+
+					// Add clue number if present
+					const clueNum = clueNumbers[row][col];
+					if (clueNum !== null) {
+						const numSpan = document.createElement('span');
+						numSpan.className = 'cell-number';
+						numSpan.textContent = clueNum;
+						cell.appendChild(numSpan);
+					}
+
+					const letter = gridData[row][col];
+					if (letter) {
+						const letterText = document.createTextNode(letter);
+						cell.appendChild(letterText);
+					} else {
+						cell.classList.add('empty');
+					}
+					gridDiv.appendChild(cell);
+				}
+			}
+
+			seedWordSpan.textContent = seedWord;
+			puzzleContainer.classList.add('show');
+
+			// Hide clues when new puzzle is generated
+			document.getElementById('cluesSection').classList.remove('show');
+		}
+
+		// Store current puzzle for clue generation
+		let currentPuzzleGrid = null;
+
+		function displayPuzzle(gridData, seedWord) {
+			// Store for clue generation
+			currentPuzzleGrid = gridData;
+
+			// Clear previous grid
+			gridDiv.innerHTML = '';
+
+			// Clue numbers: downs are 1-4 (top row), acrosses are 1,6,7,8,9 (first column + 6,7,8,9)
+			const clueNumbers = [
+				[1, 2, 3, 4, 5],      // Row 0: downs 1-5
+				[6, null, null, null, null],  // Row 1: across 6
+				[7, null, null, null, null],  // Row 2: across 7
+				[8, null, null, null, null],  // Row 3: across 8
+				[9, null, null, null, null]   // Row 4: across 9
+			];
+
+			// Create grid cells
+			for (let row = 0; row < 5; row++) {
+				for (let col = 0; col < 5; col++) {
+					const cell = document.createElement('div');
+					cell.className = 'cell';
+
+					// Add clue number if present
+					const clueNum = clueNumbers[row][col];
+					if (clueNum !== null) {
+						const numSpan = document.createElement('span');
+						numSpan.className = 'cell-number';
+						numSpan.textContent = clueNum;
+						cell.appendChild(numSpan);
+					}
+
+					const letter = gridData[row][col];
+					if (letter) {
+						const letterText = document.createTextNode(letter);
+						cell.appendChild(letterText);
+					} else {
+						cell.classList.add('empty');
+					}
+					gridDiv.appendChild(cell);
+				}
+			}
+
+			seedWordSpan.textContent = seedWord;
+			puzzleContainer.classList.add('show');
+
+			// Hide clues when new puzzle is generated
+			document.getElementById('cluesSection').classList.remove('show');
+		}
+
+		// API Key Management
+		function getApiKey() {
+			return localStorage.getItem('groq_api_key');
+		}
+
+		function manageApiKey() {
+			const modal = document.getElementById('apiModal');
+			const input = document.getElementById('apiKeyInput');
+			const currentKey = getApiKey();
+
+			if (currentKey) {
+				input.value = currentKey;
+			}
+
+			modal.classList.add('show');
+			input.focus();
+		}
+
+		function closeApiModal() {
+			document.getElementById('apiModal').classList.remove('show');
+			document.getElementById('apiKeyInput').value = '';
+		}
+
+		function saveApiKey() {
+			const key = document.getElementById('apiKeyInput').value.trim();
+
+			if (!key) {
+				alert('Please enter an API key');
+				return;
+			}
+
+			if (!key.startsWith('gsk_')) {
+				alert('Invalid API key format. Groq keys start with "gsk_"');
+				return;
+			}
+
+			localStorage.setItem('groq_api_key', key);
+			closeApiModal();
+
+			// If we were trying to generate clues, do it now
+			if (currentPuzzleGrid) {
+				generateClues();
+			}
+		}
+
+		async function generateClues() {
+			const apiKey = getApiKey();
+
+			if (!apiKey) {
+				manageApiKey();
+				return;
+			} if (!currentPuzzleGrid) {
+				showError('Please generate a puzzle first');
+				return;
+			}
+
+			// Extract words from grid
+			const acrossWords = [];
+			const downWords = [];
+
+			// Across words (rows 0-4)
+			for (let row = 0; row < 5; row++) {
+				let word = '';
+				for (let col = 0; col < 5; col++) {
+					word += currentPuzzleGrid[row][col];
+				}
+				acrossWords.push(word);
+			}
+
+			// Down words (cols 0-4)
+			for (let col = 0; col < 5; col++) {
+				let word = '';
+				for (let row = 0; row < 5; row++) {
+					word += currentPuzzleGrid[row][col];
+				}
+				downWords.push(word);
+			}
+
+			// Show loading
+			const acrossDiv = document.getElementById('acrossClues');
+			const downDiv = document.getElementById('downClues');
+			acrossDiv.innerHTML = '<p style="color: #667eea;">Generating clues...</p>';
+			downDiv.innerHTML = '<p style="color: #667eea;">Generating clues...</p>';
+			document.getElementById('cluesSection').classList.add('show');
+
+			try {
+				const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${apiKey}`
+					},
+				body: JSON.stringify({
+					model: 'llama-3.3-70b-versatile',
+					messages: [{
+							role: 'system',
+							content: 'You are a crossword clue writer. Write concise, clever crossword clues for the given words. Return ONLY a JSON object with two arrays: "across" and "down", each containing 5 clues as strings.'
+						}, {
+							role: 'user',
+							content: `Write crossword clues for these words:\n\nAcross:\n1. ${acrossWords[0]}\n6. ${acrossWords[1]}\n7. ${acrossWords[2]}\n8. ${acrossWords[3]}\n9. ${acrossWords[4]}\n\nDown:\n1. ${downWords[0]}\n2. ${downWords[1]}\n3. ${downWords[2]}\n4. ${downWords[3]}\n5. ${downWords[4]}`
+						}],
+						response_format: { type: 'json_object' },
+						temperature: 0.7
+					})
+				});
+
+				if (!response.ok) {
+					const error = await response.json();
+					throw new Error(error.error?.message || 'API request failed');
+				} const data = await response.json();
+				const clues = JSON.parse(data.choices[0].message.content);
+
+				// Display clues
+				displayClues(clues.across, clues.down, acrossWords, downWords);
+			} catch (error) {
+				acrossDiv.innerHTML = '';
+				downDiv.innerHTML = '';
+				showError('Failed to generate clues: ' + error.message);
+				console.error('Clue generation error:', error);
+			}
+		}
+
+		function displayClues(acrossClues, downClues, acrossWords, downWords) {
+			const acrossDiv = document.getElementById('acrossClues');
+			const downDiv = document.getElementById('downClues');
+
+			const acrossNumbers = [1, 6, 7, 8, 9];
+			const downNumbers = [1, 2, 3, 4, 5];
+
+			acrossDiv.innerHTML = '';
+			for (let i = 0; i < 5; i++) {
+				const clueDiv = document.createElement('div');
+				clueDiv.className = 'clue-item';
+				clueDiv.innerHTML = `<span class="clue-number">${acrossNumbers[i]}.</span> ${acrossClues[i]}`;
+				acrossDiv.appendChild(clueDiv);
+			}
+
+			downDiv.innerHTML = '';
+			for (let i = 0; i < 5; i++) {
+				const clueDiv = document.createElement('div');
+				clueDiv.className = 'clue-item';
+				clueDiv.innerHTML = `<span class="clue-number">${downNumbers[i]}.</span> ${downClues[i]}`;
+				downDiv.appendChild(clueDiv);
+			}
+		}
+
+		// Allow Enter key in modal
+		document.getElementById('apiKeyInput').addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') {
+				saveApiKey();
+			}
+		});
+	</script>
+</body>
+
+</html>
