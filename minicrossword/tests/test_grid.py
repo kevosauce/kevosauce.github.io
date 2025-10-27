@@ -195,3 +195,31 @@ class TestGrid:
         assert grid.get_column(2) == "L"
         assert grid.get_column(3) == "L"
         assert grid.get_column(4) == "O"
+
+    def test_can_place_word_prevents_duplicate_in_acrosses_and_downs(self):
+        """Test that a word cannot appear in both across and down positions.
+
+        This tests the edge case where without adding the current word to the
+        acrosses set, the same word could be placed both horizontally and vertically,
+        violating crossword puzzle rules.
+        """
+        from src.crossword_mini.word_trie import WordTrie
+
+        # Create a small trie with just a few words
+        trie = WordTrie()
+        trie.insert("COUNT")
+        trie.insert("RISER")
+        trie.insert("ALURE")
+        trie.insert("FERRE")
+        trie.insert("STING")
+
+        grid = Grid()
+        grid.place_word("COUNT", 0)
+        grid.place_word("RISER", 1)
+        grid.place_word("ALURE", 2)
+        grid.place_word("FERRE", 3)
+
+        can_place = grid.can_place_word("TREES", 4, trie)
+
+        # Should be False because TREES is already used in column 4
+        assert can_place is False, "Should not allow same word in both across and down"

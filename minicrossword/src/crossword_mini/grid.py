@@ -56,8 +56,9 @@ class Grid:
 
     def can_place_word(self, word: str, row: int, word_trie: WordTrie) -> bool:
         # assume row is first empty row
-        acrosses = set(self.get_acrosses())
         word = word.strip().upper()
+        acrosses = set(self.get_acrosses())
+        acrosses.add(word)
         for col in range(self.size):
             prefix = self.get_column(col) + word[col]
             words = word_trie.get_words_with_prefix(prefix)

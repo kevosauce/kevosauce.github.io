@@ -33,7 +33,7 @@ def get_first_word_and_generate_puzzle():
     user_word = get_five_letter_word()
     print(f"Using user seed word: {user_word}")
 
-    trie = load_words_from_file('dictionaries/combined-five.txt')
+    trie = load_words_from_file('minicrossword/dictionaries/combined-five.txt')
     grid = generate_puzzle(user_word, trie)
 
     if grid:
@@ -47,7 +47,7 @@ def get_first_word_and_generate_all_puzzles():
     user_word = get_five_letter_word()
     print(f"Using user seed word: {user_word}")
 
-    trie = load_words_from_file('dictionaries/combined-five.txt')
+    trie = load_words_from_file('minicrossword/dictionaries/combined-five.txt')
     grids = generate_all_puzzles(user_word, trie)
 
     if grids:
@@ -85,20 +85,25 @@ def ask_for_each_word():
 
 
 def test_puzzle():
-    trie = load_words_from_file('dictionaries/combined-five.txt')
+    trie = load_words_from_file('minicrossword/dictionaries/combined-five.txt')
     grid = Grid()
-    words = ["class", "lunch", "inner", "maine", "breed"]
+    # words = ["class", "lunch", "inner", "maine", "breed"]
+    words = ["count", "riser", "alure", "ferre", "trees"]
     for row, word in enumerate(words):
-        print(grid.can_place_word(word, row, trie))
+        can_place = grid.can_place_word(word, row, trie)
+        print(can_place)
+        if not can_place:
+            print("can't gen puzzle")
+            break
         grid.place_word(word, row)
-    print("success")
+    print("generated puzzle")
     print(grid.display())
 
 def main():
-    get_first_word_and_generate_puzzle()
+    # get_first_word_and_generate_puzzle()
     # ask_for_each_word()
     # get_first_word_and_generate_all_puzzles()
-    # test_puzzle()
+    test_puzzle()
 
 if __name__ == "__main__":
     main()
